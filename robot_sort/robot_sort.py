@@ -96,8 +96,82 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # sort1 has better average times, so it runs more consistently
+        # sort2 has better best case times but worse worst case times
+
+        self.sort1()
+        # self.sort2()
+
+    def sort1(self):
+        # This is basically insertion sort.  Runs in O(n^2) time.
+
+        # pick up the first item
+        self.swap_item()
+
+        while True:
+            # move right, searching for smallest item
+            while self.can_move_right():
+                self.move_right()
+                # is this item smaller?
+                if self.compare_item() > 0:
+                    self.swap_item()
+
+            # end of the list reached
+            # go back to the None place
+            while self.compare_item() is not None:
+                self.move_left()
+
+            # put item here
+            self.swap_item()
+
+            # if that was the end of the list, we are done sorting
+            if not self.can_move_right():
+                return
+            else:
+                # get the next item
+                self.move_right()
+                self.swap_item()
+
+    def sort2(self):
+        # Also runs in O(n^2)
+        # Swaps while moving both directions, always moving higher cards right
+        # and lower cards left.
+
+        # pick up the first item
+        self.swap_item()
+
+        while True:
+            # move right until we reach the end of the list
+            while self.can_move_right():
+                self.move_right()
+                # swap every time the held item is smaller
+                if self.compare_item() < 0:
+                    self.swap_item()
+
+            # Turn light on
+            self.set_light_on()
+            # move left until we reach the None spot
+            while self.compare_item() is not None:
+                # swap every time the held item is larger
+                if self.compare_item() > 0:
+                    self.swap_item()
+                else:
+                    # if we do not swap, turn the light off
+                    self.set_light_off()
+
+                # move to next spot
+                self.move_left()
+
+            # Put held item in the None slot
+            self.swap_item()
+
+            # if the light is still on, we are sorted
+            if self.light_is_on():
+                return
+            else:
+                # not done, move right and start again
+                self.move_right()
+                self.swap_item()
 
 
 if __name__ == "__main__":
