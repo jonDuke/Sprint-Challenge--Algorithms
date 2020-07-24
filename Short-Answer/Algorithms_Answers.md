@@ -10,4 +10,4 @@ c) This recursive function is O(n).  Each recursive call is made with n-1, with 
 
 ## Exercise II
 
-This can be solved with binary search.  First go to the middle floor of the building, and drop an egg.  If the egg breaks, then we need to consider the lower half of the floors.  If the egg doesn't break, then we would consider the upper half of the floors.  We would then repeat this process until we have found adjacent floors where the egg breaks and doesn't break.  That adjacent floor where it breaks is f.  This solution would use log(n) eggs.
+This can be solved with binary search.  First go to the middle floor of the building, and drop an egg.  If the egg breaks, then we need to consider the lower half of the floors.  If the egg doesn't break, then we would consider the upper half of the floors.  We would then repeat this process until we have found adjacent floors where the egg breaks and doesn't break.  That adjacent floor where it breaks is f.  This solution would use log(n) eggs, meaning it runs in O(log n) time.
