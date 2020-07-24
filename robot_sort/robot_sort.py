@@ -96,8 +96,34 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # This is basically insertion sort.  Runs in O(n^2) time.
+
+        # pick up the first item
+        self.swap_item()
+
+        while True:
+            # move right, searching for smallest item
+            while self.can_move_right():
+                self.move_right()
+                # is this item smaller?
+                if self.compare_item() > 0:
+                    self.swap_item()
+
+            # end of the list reached
+            # go back to the None place
+            while self.compare_item() is not None:
+                self.move_left()
+
+            # put item here
+            self.swap_item()
+
+            # if that was the end of the list, we are done sorting
+            if not self.can_move_right():
+                return
+            else:
+                # get the next item
+                self.move_right()
+                self.swap_item()
 
 
 if __name__ == "__main__":
